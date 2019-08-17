@@ -35,45 +35,65 @@ export default function Home() {
 			<main>
 				<Container>
 					<Jumbotron>
-						<h1>
-							What is video <em>really</em> saying?
-						</h1>
+						<h1>Read Youtube with Hieroglyph</h1>
 						<p>Shorten your research binge.</p>
 						<Button color='primary'>Signup</Button>
 					</Jumbotron>
-				</Container>
 
-				<Container>
-					<Jumbotron>
-						<h2>Features</h2>
-						<Row>
-							<Col>
-								<Card>
-									<h3>Search</h3>
-								</Card>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<Card>
-									<h3>Read</h3>
-								</Card>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<Card>
-									<h3>Note</h3>
-								</Card>
-							</Col>
-						</Row>
-					</Jumbotron>
-				</Container>
+					<Row>
+						<h3>Find it Now</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+							reprehenderit in voluptate velit esse cillum dolore eu fugiat
+							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+							sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</Row>
+					<Row>
+						<Col xs={6}>
+							<img
+								src='http://via.placeholder.com/380x380'
+								alt='Stock image of feature'
+							/>
+						</Col>
+						<Col xs={6}>
+							<h3>Read</h3>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+								enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+								in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+								nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+								sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+						</Col>
+					</Row>
+					<Row>
+						<Col xs={6}>
+							<h3>Note</h3>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+								enim ad minim veniam, quis nostrud exercitation ullamco laboris
+								nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+								in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+								nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+								sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+						</Col>
+						<Col xs={6}>
+							<img
+								src='http://via.placeholder.com/380x380'
+								alt='Stock image of feature'
+							/>
+						</Col>
+					</Row>
 
-				<Container>
-					<Jumbotron>
-						<h2>About Us</h2>
-					</Jumbotron>
+					<h2>About Us</h2>
 				</Container>
 			</main>
 

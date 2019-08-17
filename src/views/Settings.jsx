@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Settings() {
 	return (
-		<div className='container'>
+		<div>
 			<h1>Settings</h1>
 		</div>
 	);

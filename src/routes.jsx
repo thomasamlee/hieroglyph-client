@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Dashboard from './views/Dashboard/Dashboard';
+import Dashboard from './views/Dashboard';
 import Login from './views/Login';
-import Read from './views/Read/Read';
+import Read from './views/Read';
 import Upload from './views/Upload';
 import Settings from './views/Settings';
 import Search from './views/Search';
@@ -14,10 +14,10 @@ export default (
 		<Route component={Home} exact path='/' />
 		<Route component={Upload} path='/upload' />
 		<Route component={Read} path='/read/:videoID' />
-		<Route component={Dashboard} path='/dashboard' />
-		<Route component={Login} path='/login' />
 		<Route component={Search} path='/search' />
-		<Route component={Settings} path='/settings' />
-		<Route component={Library} path='/library' />
+		{/* <Route component={Login} path='/login' /> */}
+		{/* <Route component={Dashboard} path='/dashboard' /> */}
+		{/* <Route component={Settings} path='/settings' /> */}
+		{/* <Route component={Library} path='/library' /> */}
 	</Switch>
 );

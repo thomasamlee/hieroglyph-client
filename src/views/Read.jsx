@@ -31,11 +31,11 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import Container from '@material-ui/core/Container';
-import { useReadStyles } from './ReadStyles';
+import { useStyles } from './ReadStyles';
 
 export default function Read(props) {
 	// Material-ui state
-	const classes = useReadStyles();
+	const classes = useStyles();
 	const [open, setOpen] = useState(false);
 
 	// Content state
