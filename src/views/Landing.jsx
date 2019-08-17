@@ -15,30 +15,8 @@ import {
 export default function Home() {
 	return (
 		<div>
-			<header>
-				<Navbar>
-					<NavbarBrand href='/' className='mr-auto'>
-						Hieroglyph
-					</NavbarBrand>
-
-					<Nav className='ml-auto' navbar>
-						<NavItem>
-							<Link to='/login'>
-								<Button>Login</Button>
-							</Link>
-						</NavItem>
-					</Nav>
-				</Navbar>
-			</header>
-
 			<main>
 				<Container>
-					<Jumbotron>
-						<h1>Read Youtube with Hieroglyph</h1>
-						<p>Shorten your research binge.</p>
-						<Button color='primary'>Signup</Button>
-					</Jumbotron>
-
 					<Row>
 						<h3>Find it Now</h3>
 						<p>

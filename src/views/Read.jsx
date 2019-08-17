@@ -4,16 +4,12 @@ import ReactPlayer from 'react-player';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
 import Typography from '@material-ui/core/Typography';
-
 import Container from '@material-ui/core/Container';
-import { useStyles } from '../shared/DrawerNavStyles';
+import { useStyles } from './ReadStyles';
 
 export default function Read(props) {
-	// Material-ui state
 	const classes = useStyles();
-	// Content state
 	const { videoID } = props.match.params;
 	const [title, setTitle] = useState('');
 	const [transcript, setTranscript] = useState('');
@@ -47,9 +43,7 @@ export default function Read(props) {
 					</Paper>
 				</Grid>
 				<Grid item xs={3}>
-					<Paper className={classes.paper}>
-						<ReactPlayer url='https://www.youtube.com/watch?v=OVtH0YB6C4I' />
-					</Paper>
+					<Paper className={classes.paper} />
 				</Grid>
 			</Grid>
 		</Container>

@@ -1,6 +1,11 @@
 import React from 'react';
-import routes from './routes';
+import { viewRoutes } from './routes';
 
 export default function App() {
-	return <>{routes}</>;
+	return (
+		<>
+			{/* Drawer Routes Here */}
+			{viewRoutes}
+		</>
+	);
 }
