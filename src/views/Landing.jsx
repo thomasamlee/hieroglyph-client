@@ -9,8 +9,7 @@ import {
 	Navbar,
 	NavbarBrand,
 	Nav,
-	NavItem,
-	Card
+	NavItem
 } from 'reactstrap';
 
 export default function Home() {
@@ -54,10 +53,7 @@ export default function Home() {
 					</Row>
 					<Row>
 						<Col xs={6}>
-							<img
-								src='http://via.placeholder.com/380x380'
-								alt='Stock image of feature'
-							/>
+							<img src='http://via.placeholder.com/380x380' alt='feature 1' />
 						</Col>
 						<Col xs={6}>
 							<h3>Read</h3>
@@ -86,10 +82,7 @@ export default function Home() {
 							</p>
 						</Col>
 						<Col xs={6}>
-							<img
-								src='http://via.placeholder.com/380x380'
-								alt='Stock image of feature'
-							/>
+							<img src='http://via.placeholder.com/380x380' alt='feature 2' />
 						</Col>
 					</Row>
 

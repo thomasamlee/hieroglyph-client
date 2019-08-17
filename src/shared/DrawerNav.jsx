@@ -1,37 +1,40 @@
-import React, { useState } from './node_modules/react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import clsx from './node_modules/clsx';
-import Drawer from './node_modules/@material-ui/core/Drawer';
-import Typography from './node_modules/@material-ui/core/Typography';
-import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
-import AppBar from './node_modules/@material-ui/core/AppBar';
-import Toolbar from './node_modules/@material-ui/core/Toolbar';
-import List from './node_modules/@material-ui/core/List';
-import Divider from './node_modules/@material-ui/core/Divider';
-import ListItem from './node_modules/@material-ui/core/ListItem';
-import ListItemIcon from './node_modules/@material-ui/core/ListItemIcon';
-import ListItemText from './node_modules/@material-ui/core/ListItemText';
-import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
-import IconButton from './node_modules/@material-ui/core/IconButton';
-import HomeIcon from './node_modules/@material-ui/icons/Home';
-import SearchIcon from './node_modules/@material-ui/icons/Search';
-import MenuIcon from './node_modules/@material-ui/icons/Menu';
-import FolderIcon from './node_modules/@material-ui/icons/Folder';
-import CloudUploadIcon from './node_modules/@material-ui/icons/CloudUpload';
-import SettingsIcon from './node_modules/@material-ui/icons/Settings';
+import clsx from 'clsx';
 
-import Container from './node_modules/@material-ui/core/Container';
+import Drawer from '@material-ui/core/Drawer';
 
-import { useDrawerNavStyles } from './DrawerNavStyles';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-export default function Read(props) {
-	const classes = useDrawerNavStyles();
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
+import FolderIcon from '@material-ui/icons/Folder';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import { useStyles } from './DrawerNavStyles';
+
+export default function DrawerNav(props) {
+	const classes = useStyles();
 	const [open, setOpen] = useState(false);
 
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-
 			<AppBar
 				position='fixed'
 				className={clsx(classes.appBar, {
@@ -51,7 +54,6 @@ export default function Read(props) {
 					</Typography>
 				</Toolbar>
 			</AppBar>
-
 			<Drawer
 				className={classes.drawer}
 				variant='persistent'
@@ -67,55 +69,63 @@ export default function Read(props) {
 				</div>
 				<Divider />
 
-				{/* General Links: Dashboard, Search, Upload */}
 				<List>
-					<ListItem button key={'Dashboard'}>
-						<Link to='/'>
+					<Link to='/dashboard'>
+						<ListItem button>
 							<ListItemIcon>
 								<HomeIcon />
 							</ListItemIcon>
 							<ListItemText primary={'Dashboard'} />
-						</Link>
-					</ListItem>
+						</ListItem>
+					</Link>
 
-					<ListItem button key={'Search'}>
-						<ListItemIcon>
-							<SearchIcon />
-						</ListItemIcon>
-						<ListItemText primary={'Search'} />
-					</ListItem>
+					<Link to='/search'>
+						<ListItem button>
+							<ListItemIcon>
+								<SearchIcon />
+							</ListItemIcon>
+							<ListItemText primary={'Search'} />
+						</ListItem>
+					</Link>
 
-					<ListItem button key={'Upload'}>
-						<ListItemIcon>
-							<CloudUploadIcon />
-						</ListItemIcon>
-						<ListItemText primary={'Upload'} />
-					</ListItem>
+					<Link to='/upload'>
+						<ListItem button key={'Upload'}>
+							<ListItemIcon>
+								<CloudUploadIcon />
+							</ListItemIcon>
+							<ListItemText primary={'Upload'} />
+						</ListItem>
+					</Link>
 				</List>
 
 				<Divider />
 
 				{/* User-centric Links: Library, Notes, Saved, etc */}
 				<List>
-					<ListItem button key={'Library'}>
-						<ListItemIcon>
-							<FolderIcon />
-						</ListItemIcon>
-						<ListItemText primary={'Library'} />
-					</ListItem>
+					<Link to='/library'>
+						<ListItem button key={'Library'}>
+							<ListItemIcon>
+								<FolderIcon />
+							</ListItemIcon>
+							<ListItemText primary={'Library'} />
+						</ListItem>
+					</Link>
 				</List>
 
 				<Divider />
 
 				{/* Settings Links */}
 				<List>
-					<ListItem button key={'Settings'}>
-						<ListItemIcon>
-							<SettingsIcon />
-						</ListItemIcon>
-						<ListItemText primary={'Settings'} />
-					</ListItem>
+					<Link to='/library'>
+						<ListItem button key={'Settings'}>
+							<ListItemIcon>
+								<SettingsIcon />
+							</ListItemIcon>
+							<ListItemText primary={'Settings'} />
+						</ListItem>
+					</Link>
 				</List>
+
 				<Divider />
 			</Drawer>
 
@@ -125,9 +135,7 @@ export default function Read(props) {
 				})}>
 				<div className={classes.drawerHeader} />
 
-				<Container>
-					<Typography>Insert your stuff here</Typography>
-				</Container>
+				{props.children}
 			</main>
 		</div>
 	);

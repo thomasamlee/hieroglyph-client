@@ -1,8 +1,8 @@
-import { makeStyles } from './node_modules/@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
-export const useDrawerNavStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
 	root: {
 		display: 'flex',
 		flexGrow: 1
