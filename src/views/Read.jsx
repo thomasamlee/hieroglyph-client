@@ -10,28 +10,104 @@ import {
 	NavItem,
 	Container,
 	Row,
-	Col
+	Col,
+	Spinner
 } from 'reactstrap';
+
+const statusEnum = Object.freeze({
+	WAITING: 'WAITING',
+	ERROR: 'ERROR',
+	UPLOAD: 'UPLOAD',
+	READY: 'READY'
+});
 
 export default function Read(props) {
 	const { videoId } = props.match.params;
-	const [fetchStatus, setFetchStatus] = useState({ message: '', fault: false });
-	const [title, setTitle] = useState('');
-	const [transcript, setTranscript] = useState('');
+	const { WAITING } = statusEnum;
 
-	async function fetchData(videoId) {
+	// State
+	const [metadata, setMetadata] = useState(null);
+	const [status, setStatus] = useState(WAITING);
+
+	async function fetchData() {
+		const { ERROR, UPLOAD, READY } = statusEnum;
 		try {
 			const { data } = await axios.get(`/api/metadata/${videoId}`);
-			console.log(data);
-			setTitle(data.videoDetails.title);
-			setTranscript(data.transcript);
+			if (data.videoDetails && data.transcript) {
+				setMetadata(data);
+				setStatus(READY);
+			} else {
+				setStatus(UPLOAD);
+			}
 		} catch (err) {
 			console.log(err);
+			setStatus(ERROR);
+		}
+	}
+
+	function renderSwitch(statusCase) {
+		const { WAITING, ERROR, UPLOAD, READY } = statusEnum;
+		switch (statusCase) {
+			case WAITING:
+				return (
+					<>
+						<h1>Waiting...</h1>
+						<hr />
+						<Spinner color='primary' />
+					</>
+				);
+
+			case ERROR:
+				return (
+					<>
+						<h1>There is some unknown error.</h1>
+						<hr />
+						<p>Try refreshing.</p>
+					</>
+				);
+			case UPLOAD:
+				return (
+					<>
+						<h1>This video could not be found.</h1>
+						<hr />
+						<p>
+							If you would like to add the video, click{' '}
+							<Link to='/upload'>here</Link>.
+						</p>
+					</>
+				);
+			case READY:
+				return (
+					<>
+						<Row>
+							<ReactPlayer
+								url={`https://youtu.be/${metadata.videoId}`}
+								width='100%'
+								height='642px'
+							/>
+						</Row>
+						<Row>
+							<Col>
+								<h1>{metadata.videoDetails.title}</h1>
+								<hr />
+								<p>{metadata.transcript}</p>
+							</Col>
+						</Row>
+					</>
+				);
+			default:
+				return (
+					<>
+						<h1>Waiting...</h1>
+						<hr />
+						<Spinner color='primary' />
+					</>
+				);
 		}
 	}
 
 	useEffect(() => {
-		fetchData(videoId);
+		fetchData();
 	}, [videoId]);
 
 	return (
@@ -47,22 +123,7 @@ export default function Read(props) {
 					</NavItem>
 				</Nav>
 			</Navbar>
-			<Container>
-				<Row>
-					<ReactPlayer
-						url={`https://youtu.be/${videoId}`}
-						width='100%'
-						height='642px'
-					/>
-				</Row>
-				<Row>
-					<Col>
-						<h6>{title}</h6>
-						<hr />
-						<p>{transcript}</p>
-					</Col>
-				</Row>
-			</Container>
+			<Container>{renderSwitch(status)}</Container>
 		</div>
 	);
 }

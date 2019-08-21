@@ -19,20 +19,17 @@ export default function Upload() {
 	const [videoId, setVideoId] = useState('');
 	const [message, setMessage] = useState('');
 
-	const handleInput = e => {
+	const handleInput = (e) => {
 		setInputUrl(e.target.value);
 		setVideoId(''); // clear success
 		setMessage(''); // clear fail
 	};
 
-	async function addToDatabase() {
-		await axios.post(`/api/metadata/${videoId}`);
-	}
-
-	const handleSubmit = url => {
+	const handleSubmit = (url) => {
 		if (validateUrl(url)) {
 			setMessage('Success! Valid URL.');
 			setVideoId(getvideoId(url));
+			postMetadata(videoId);
 		} else {
 			setMessage('Invalid URL.');
 		}
@@ -61,7 +58,7 @@ export default function Upload() {
 							type='text'
 							placeholder='YouTube URL'
 							value={inputUrl}
-							onChange={e => handleInput(e)}
+							onChange={(e) => handleInput(e)}
 						/>
 						<InputGroupAddon addonType='append'>
 							{videoId ? (
@@ -95,4 +92,13 @@ function validateUrl(url) {
 function getvideoId(url) {
 	const ytRegex = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
 	return url.match(ytRegex)[1];
+}
+
+async function postMetadata(videoId) {
+	try {
+		const response = await axios.post(`/api/metadata/${videoId}`);
+		console.log(response);
+	} catch (err) {
+		console.log(err);
+	}
 }
