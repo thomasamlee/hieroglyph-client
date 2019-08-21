@@ -1,16 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import {
-	Container,
-	Row,
-	Col,
-	Jumbotron,
-	Button,
-	Navbar,
-	NavbarBrand,
-	Nav,
-	NavItem
-} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 export default function Home() {
 	return (

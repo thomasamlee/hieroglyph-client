@@ -1,28 +1,50 @@
 import React from 'react';
-import qs from 'qs';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Logo from '../assets/logo.png';
-import { useStyles } from './SearchStyles';
+
+import { Link } from 'react-router-dom';
+import {
+	Navbar,
+	NavbarBrand,
+	Nav,
+	NavItem,
+	Container,
+	Button,
+	InputGroup,
+	InputGroupAddon,
+	Input
+} from 'reactstrap';
+import './Search.scss';
 
 export default function Search(props) {
-	console.log(props.match);
-	const classes = useStyles();
-
 	return (
-		<div className={classes.root}>
+		<div>
+			<Navbar color='light' light expand='md'>
+				<NavbarBrand>
+					<Link to='/'>Hieroglyph</Link>
+				</NavbarBrand>
+
+				<Nav className='ml-auto' navbar>
+					<NavItem>
+						<Link to='/upload'>Upload</Link>
+					</NavItem>
+				</Nav>
+			</Navbar>
+
 			<Container>
-				<Grid container alignItems='center' justify='center'>
-					<Grid item xs={6}>
-						<Paper className={classes.paper}>
-							<img src={Logo} className={classes.logo} />
-							<hr />
-							<input placeholder='search here' />
-							<button>submit</button>
-						</Paper>
-					</Grid>
-				</Grid>
+				<div className='search'>
+					<div className='logo'>
+						<img className='logo__img' src={Logo} alt='hieroglyph logo' />
+					</div>
+
+					<div className='search'>
+						<InputGroup>
+							<Input placeholder='search here' />
+							<InputGroupAddon addonType='append'>
+								<Button>Submit</Button>
+							</InputGroupAddon>
+						</InputGroup>
+					</div>
+				</div>
 			</Container>
 		</div>
 	);
