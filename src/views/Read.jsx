@@ -108,7 +108,7 @@ export default function Read(props) {
 
 	useEffect(() => {
 		fetchData(videoId);
-	}, [videoId, fetchData]);
+	}, [videoId]);
 
 	return (
 		<div>

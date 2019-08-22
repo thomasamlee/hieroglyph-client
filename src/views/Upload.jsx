@@ -10,7 +10,8 @@ import {
 	Button,
 	InputGroup,
 	InputGroupAddon,
-	Input
+	Input,
+	Spinner
 } from 'reactstrap';
 
 const statusEnum = Object.freeze({
@@ -28,25 +29,37 @@ export default function Upload() {
 
 	const handleInput = (e) => {
 		setInputUrl(e.target.value);
-		setStatus(''); // clears everything
+		setStatus('');
+		setVideoId('');
 	};
 
 	// this is where the
-	const handleSubmit = (url) => {
-		const { INVALID_INPUT, WAITING, SEVER_ERROR, FOUND, SUCCESS } = statusEnum;
-		if (!validateUrl(url)) setStatus(INVALID_INPUT);
+	async function handleSubmit(url) {
+		const { INVALID_INPUT, WAITING, SERVER_ERROR, FOUND, SUCCESS } = statusEnum;
+		setStatus(WAITING);
 
-		// if request resolves, show link to Read
-		// if request goofs, display error
-	};
+		if (!validateUrl(url)) return setStatus(INVALID_INPUT);
+
+		try {
+			const { data } = await axios.post(`/api/metadata/${getVideoId(url)}`);
+			if (data.message === SUCCESS) setStatus(SUCCESS);
+			if (data.message === FOUND) setStatus(FOUND);
+			setVideoId(data.videoId);
+		} catch (err) {
+			console.log(err);
+			setStatus(SERVER_ERROR);
+		}
+	}
 
 	function messageSwitch(statusParam) {
-		const { INVALID_INPUT, FOUND, SERVER_ERROR, SUCCESS } = statusEnum;
+		const { INVALID_INPUT, FOUND, SERVER_ERROR, WAITING, SUCCESS } = statusEnum;
 		switch (statusParam) {
 			case INVALID_INPUT:
-
+				return <p>Invalid URL. Try again.</p>;
+			case WAITING:
+				return <Spinner color='primary' />;
 			case FOUND:
-				return <p>Transcript already added. Click next to read it.</p>; // display message & show link to /read/videoId:
+				return <p>Transcript already added. Click next to read it.</p>;
 			case SUCCESS:
 				return <p>Transcript added. Click next to read it.</p>;
 			case SERVER_ERROR:
@@ -57,9 +70,9 @@ export default function Upload() {
 	}
 
 	function buttonSwitch(statusParam) {
-		const { ALREADY_EXISTS, SUCCESS } = statusEnum;
+		const { FOUND, SUCCESS } = statusEnum;
 		switch (statusParam) {
-			case ALREADY_EXISTS:
+			case FOUND:
 			case SUCCESS:
 				return (
 					<Button>
@@ -68,15 +81,6 @@ export default function Upload() {
 				);
 			default:
 				return <Button onClick={() => handleSubmit(inputUrl)}>Submit</Button>;
-		}
-	}
-
-	async function postMetadata(videoId) {
-		try {
-			const response = await axios.post(`/api/metadata/${videoId}`);
-			console.log(response);
-		} catch (err) {
-			console.log(err);
 		}
 	}
 
@@ -118,11 +122,13 @@ export default function Upload() {
 
 // helper functions
 function validateUrl(url) {
-	const regex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
+	// const regex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
+	const regex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-_]*)(&(amp;)?‌​[\w?‌​=]*)?/;
 	return regex.test(url);
 }
 
-function getvideoId(url) {
-	const ytRegex = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+function getVideoId(url) {
+	// const ytRegex = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+	const ytRegex = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/;
 	return url.match(ytRegex)[1];
 }
