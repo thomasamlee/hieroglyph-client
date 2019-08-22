@@ -29,7 +29,7 @@ export default function Read(props) {
 	const [metadata, setMetadata] = useState(null);
 	const [status, setStatus] = useState(WAITING);
 
-	async function fetchData() {
+	async function fetchData(videoId) {
 		const { ERROR, UPLOAD, READY } = statusEnum;
 		try {
 			const { data } = await axios.get(`/api/metadata/${videoId}`);
@@ -45,9 +45,9 @@ export default function Read(props) {
 		}
 	}
 
-	function renderSwitch(statusCase) {
+	function pageSwitch(statusParam) {
 		const { WAITING, ERROR, UPLOAD, READY } = statusEnum;
-		switch (statusCase) {
+		switch (statusParam) {
 			case WAITING:
 				return (
 					<>
@@ -107,8 +107,8 @@ export default function Read(props) {
 	}
 
 	useEffect(() => {
-		fetchData();
-	}, [videoId]);
+		fetchData(videoId);
+	}, [videoId, fetchData]);
 
 	return (
 		<div>
@@ -123,7 +123,7 @@ export default function Read(props) {
 					</NavItem>
 				</Nav>
 			</Navbar>
-			<Container>{renderSwitch(status)}</Container>
+			<Container>{pageSwitch(status)}</Container>
 		</div>
 	);
 }
