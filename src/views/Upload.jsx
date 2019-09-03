@@ -33,7 +33,6 @@ export default function Upload() {
 		setVideoId('');
 	};
 
-	// this is where the
 	async function handleSubmit(url) {
 		const { INVALID_INPUT, WAITING, SERVER_ERROR, FOUND, SUCCESS } = statusEnum;
 		setStatus(WAITING);
@@ -41,7 +40,7 @@ export default function Upload() {
 		if (!validateUrl(url)) return setStatus(INVALID_INPUT);
 
 		try {
-			const { data } = await axios.post(`/api/metadata/${getVideoId(url)}`);
+			const { data } = await axios.post(`/api/video/${getVideoId(url)}`);
 			if (data.message === SUCCESS) setStatus(SUCCESS);
 			if (data.message === FOUND) setStatus(FOUND);
 			setVideoId(data.videoId);
@@ -86,17 +85,19 @@ export default function Upload() {
 
 	return (
 		<div>
-			<Navbar color='light' light expand='md'>
-				<NavbarBrand>
-					<Link to='/'>Hieroglyph</Link>
-				</NavbarBrand>
-
+			{/* <Navbar color='light' light expand='md'>
+				<Link to='/'>
+					<NavbarBrand>Hieroglyph</NavbarBrand>
+				</Link>
 				<Nav className='ml-auto' navbar>
-					<NavItem>
-						<Link to='/upload'>Upload</Link>
-					</NavItem>
+					<Link to='/upload'>
+						<NavItem>Upload</NavItem>
+					</Link>
+					<Link to='/search'>
+						<NavItem>search</NavItem>
+					</Link>
 				</Nav>
-			</Navbar>
+			</Navbar> */}
 
 			<Container>
 				<h1>Upload</h1>

@@ -26,15 +26,16 @@ export default function Read(props) {
 	const { WAITING } = statusEnum;
 
 	// State
-	const [metadata, setMetadata] = useState(null);
+	const [video, setVideo] = useState(null);
 	const [status, setStatus] = useState(WAITING);
 
 	async function fetchData(videoId) {
 		const { ERROR, UPLOAD, READY } = statusEnum;
 		try {
-			const { data } = await axios.get(`/api/metadata/${videoId}`);
-			if (data.videoDetails && data.transcript) {
-				setMetadata(data);
+			const { data } = await axios.get(`/api/video/${videoId}`);
+
+			if (data) {
+				setVideo(data);
 				setStatus(READY);
 			} else {
 				setStatus(UPLOAD);
@@ -80,17 +81,19 @@ export default function Read(props) {
 				return (
 					<>
 						<Row>
-							<ReactPlayer
-								url={`https://youtu.be/${metadata.videoId}`}
-								width='100%'
-								height='642px'
-							/>
+							<Col>
+								{/* <ReactPlayer
+									url={`https://youtu.be/${videoId}`}
+									width='100%'
+									height='642px'
+								/> */}
+							</Col>
 						</Row>
 						<Row>
-							<Col>
-								<h1>{metadata.videoDetails.title}</h1>
+							<Col xs={12}>
+								<h1>{video.title}</h1>
 								<hr />
-								<p>{metadata.transcript}</p>
+								<p>{video.transcript}</p>
 							</Col>
 						</Row>
 					</>
@@ -113,15 +116,9 @@ export default function Read(props) {
 	return (
 		<div>
 			<Navbar color='light' light expand='md'>
-				<NavbarBrand>
-					<Link to='/'>Hieroglyph</Link>
-				</NavbarBrand>
-
-				<Nav className='ml-auto' navbar>
-					<NavItem>
-						<Link to='/upload'>Upload</Link>
-					</NavItem>
-				</Nav>
+				<Link to='/'>
+					<NavbarBrand>Hieroglyph</NavbarBrand>
+				</Link>
 			</Navbar>
 			<Container>{pageSwitch(status)}</Container>
 		</div>
