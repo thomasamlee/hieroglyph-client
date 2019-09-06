@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import textSwitch from './textSwitch';
-import videoSwitch from './videoSwitch';
+import transcriptSwitch from './transcriptSwitch';
+import playerSwitch from './playerSwitch';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, Container, Button, Row, Col } from 'reactstrap';
 
@@ -50,29 +50,51 @@ export default function Read(props) {
 				</Link>
 			</Navbar>
 
-			<Button
-				color='secondary'
-				size='lg'
-				onClick={() => props.history.goBack()}
-			>
-				Back
-			</Button>
-			<Button
-				color='secondary'
-				size='lg'
-				onClick={() => setShowPlayer(!showPlayer)}
-			>
-				Show Player
-			</Button>
-
 			<Container>
 				<Row>
-					<Col xs='9'>{textSwitch(status, video)}</Col>
-					<Col xs='3'>
-						<div className='video-frame'>
-							{showPlayer ? videoSwitch(status, video) : null}
-						</div>
+					<Col>
+						<Button color='secondary' onClick={() => props.history.goBack()}>
+							Back
+						</Button>
 					</Col>
+				</Row>
+
+				{showPlayer ? (
+					<Row>
+						<Col xs='12'>
+							<div className='video-frame'>{playerSwitch(status, video)}</div>
+						</Col>
+					</Row>
+				) : null}
+
+				<Row>
+					<Col xs='12'>
+						<h1>VIDEO TITLE</h1>
+						<h3>Channel Title</h3>
+						<p>Description</p>
+					</Col>
+				</Row>
+
+				{/* Button Bar */}
+				<Row>
+					<Col>
+						<Button
+							color='secondary'
+							onClick={() => setShowPlayer(!showPlayer)}
+						>
+							Show Player
+						</Button>
+					</Col>
+				</Row>
+				{/* Line Break (remove?) */}
+				<Row>
+					<Col xs='12'>
+						<hr />
+					</Col>
+				</Row>
+				{/* Transcript Text */}
+				<Row>
+					<Col xs='12'>{transcriptSwitch(status, video)}</Col>
 				</Row>
 			</Container>
 		</div>

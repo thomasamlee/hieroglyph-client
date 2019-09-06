@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Navbar, NavbarBrand, Container } from 'reactstrap';
+import { Navbar, NavbarBrand, Container, Col, Row } from 'reactstrap';
 import {
 	ReactiveBase,
 	ResultList,
 	ReactiveList,
-	MultiList,
+	MultiDropdownList,
 	SelectedFilters,
 	CategorySearch
 } from '@appbaseio/reactivesearch';
@@ -43,10 +43,11 @@ export default function Search() {
 				/>
 
 				<SelectedFilters showClearAll={true} />
-				<div className='container'>
-					{/* sidebars */}
-					<div>
-						<MultiList
+
+				{/* sidebars */}
+				<Row>
+					<Col>
+						<MultiDropdownList
 							componentId='Category'
 							placeholder='Video Category'
 							dataField='categoryId'
@@ -56,7 +57,9 @@ export default function Search() {
 								and: ['Channel', 'Category', 'Tags', 'Search']
 							}}
 						/>
-						<MultiList
+					</Col>
+					<Col>
+						<MultiDropdownList
 							componentId='Channel'
 							placeholder='Channel'
 							dataField='channelTitle.keyword'
@@ -66,7 +69,9 @@ export default function Search() {
 								and: ['Channel', 'Category', 'Tags', 'Search']
 							}}
 						/>
-						<MultiList
+					</Col>
+					<Col>
+						<MultiDropdownList
 							componentId='Tags'
 							placeholder='Tags'
 							dataField='tags.keyword'
@@ -76,9 +81,11 @@ export default function Search() {
 								and: ['Channel', 'Category', 'Tags', 'Search']
 							}}
 						/>
-					</div>
-					{/* Displays results */}
-					<div>
+					</Col>
+				</Row>
+				{/* Displays results */}
+				<Row>
+					<Col>
 						<ReactiveList
 							componentId='List'
 							dataField={['title', 'description', 'transcript']}
@@ -90,8 +97,8 @@ export default function Search() {
 							}}
 							render={resultsListRender}
 						/>
-					</div>
-				</div>
+					</Col>
+				</Row>
 			</Container>
 		</ReactiveBase>
 	);

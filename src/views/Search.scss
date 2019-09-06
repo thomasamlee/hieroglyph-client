@@ -1,11 +1,12 @@
+$dark-purple: #7d5d6b;
+
 body {
-	background: #f3f3f3;
+	background: $dark-purple;
 }
 
 .container {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 0.3fr 1fr;
 	grid-gap: 10px;
 }
 

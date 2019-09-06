@@ -1,7 +1,5 @@
 exports.convertCategoryId = (categoryId) => {
 	switch (categoryId) {
-		default:
-			return 'Undefined';
 		case 1:
 			return 'Film & Animation';
 		case 2:
@@ -66,5 +64,7 @@ exports.convertCategoryId = (categoryId) => {
 			return 'Shows';
 		case 44:
 			return 'Trailers';
+		default:
+			return 'Undefined';
 	}
 };
