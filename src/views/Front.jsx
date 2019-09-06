@@ -88,7 +88,6 @@ export default function Search() {
 							react={{
 								or: ['Channel', 'Category', 'Tags', 'Search']
 							}}
-							render={resultsListRender}
 						/>
 					</div>
 				</div>
@@ -115,8 +114,3 @@ function resultsListRender({ data }) {
 
 	return <ResultListWrapper>{resultListMap}</ResultListWrapper>;
 }
-
-const categoryRender = (dataObj) => {
-	console.log(dataObj);
-	// Is this where we send the query term (as prop or qs?) to then do read search?
-};
