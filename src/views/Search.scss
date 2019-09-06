@@ -1,7 +1,7 @@
 $dark-purple: #7d5d6b;
 
 body {
-	background: $dark-purple;
+	background-color: $dark-purple;
 }
 
 .container {
@@ -36,4 +36,12 @@ body {
 	.container .result {
 		margin: 10px 0px;
 	}
+}
+
+.split-container {
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	justify-content: space-evenly;
 }

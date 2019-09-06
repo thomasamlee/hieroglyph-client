@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import transcriptSwitch from './transcriptSwitch';
-import playerSwitch from './playerSwitch';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, Container, Button, Row, Col } from 'reactstrap';
-
 import './Read.scss';
+
+import transcriptSwitch from './transcriptSwitch';
+import playerSwitch from './playerSwitch';
+import videoDataSwitch from './videoDataSwitch';
 
 const statusEnum = Object.freeze({
 	WAITING: 'WAITING',
@@ -14,6 +15,8 @@ const statusEnum = Object.freeze({
 	UPLOAD: 'UPLOAD',
 	READY: 'READY'
 });
+
+// YB46h1koicQ Colbert Interview (Example)
 
 export default function Read(props) {
 	const { videoId } = props.match.params;
@@ -61,19 +64,14 @@ export default function Read(props) {
 
 				{showPlayer ? (
 					<Row>
-						<Col xs='12'>
+						<Col xs='12' className='video-frame__box'>
 							<div className='video-frame'>{playerSwitch(status, video)}</div>
 						</Col>
 					</Row>
 				) : null}
 
-				<Row>
-					<Col xs='12'>
-						<h1>VIDEO TITLE</h1>
-						<h3>Channel Title</h3>
-						<p>Description</p>
-					</Col>
-				</Row>
+				{/* Video Data */}
+				<Row>{videoDataSwitch(status, video)}</Row>
 
 				{/* Button Bar */}
 				<Row>
@@ -86,6 +84,7 @@ export default function Read(props) {
 						</Button>
 					</Col>
 				</Row>
+
 				{/* Line Break (remove?) */}
 				<Row>
 					<Col xs='12'>

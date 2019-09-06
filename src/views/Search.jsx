@@ -34,72 +34,82 @@ export default function Search() {
 				</Link>
 			</Navbar>
 
-			<Container>
-				<CategorySearch
-					componentId='Search'
-					dataField={['title', 'channelTitle', 'description']}
-					autoSuggest={true}
-					placeholder='Search transcripts'
-				/>
+			<div className='split-container'>
+				<Container>
+					<CategorySearch
+						componentId='Search'
+						dataField={['title', 'channelTitle', 'description']}
+						autoSuggest={true}
+						placeholder='Search transcripts'
+					/>
 
-				<SelectedFilters showClearAll={true} />
+					<SelectedFilters showClearAll={true} />
 
-				{/* sidebars */}
-				<Row>
-					<Col>
-						<MultiDropdownList
-							componentId='Category'
-							placeholder='Video Category'
-							dataField='categoryId'
-							size={50}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
-						/>
-					</Col>
-					<Col>
-						<MultiDropdownList
-							componentId='Channel'
-							placeholder='Channel'
-							dataField='channelTitle.keyword'
-							size={10}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
-						/>
-					</Col>
-					<Col>
-						<MultiDropdownList
-							componentId='Tags'
-							placeholder='Tags'
-							dataField='tags.keyword'
-							size={10}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
-						/>
-					</Col>
-				</Row>
-				{/* Displays results */}
-				<Row>
-					<Col>
-						<ReactiveList
-							componentId='List'
-							dataField={['title', 'description', 'transcript']}
-							className='result'
-							pagination
-							size={5}
-							react={{
-								or: ['Channel', 'Category', 'Tags', 'Search']
-							}}
-							render={resultsListRender}
-						/>
-					</Col>
-				</Row>
-			</Container>
+					{/* sidebars */}
+					<Row>
+						<Col>
+							<MultiDropdownList
+								componentId='Category'
+								placeholder='Video Category'
+								dataField='categoryId'
+								size={50}
+								className='filter'
+								react={{
+									and: ['Channel', 'Category', 'Tags', 'Search']
+								}}
+							/>
+						</Col>
+						<Col>
+							<MultiDropdownList
+								componentId='Channel'
+								placeholder='Channel'
+								dataField='channelTitle.keyword'
+								size={10}
+								className='filter'
+								react={{
+									and: ['Channel', 'Category', 'Tags', 'Search']
+								}}
+							/>
+						</Col>
+						<Col>
+							<MultiDropdownList
+								componentId='Tags'
+								placeholder='Tags'
+								dataField='tags.keyword'
+								size={10}
+								className='filter'
+								react={{
+									and: ['Channel', 'Category', 'Tags', 'Search']
+								}}
+							/>
+						</Col>
+					</Row>
+					{/* Displays results */}
+					<Row>
+						<Col>
+							<ReactiveList
+								componentId='List'
+								dataField={['title', 'description', 'transcript']}
+								className='result'
+								pagination
+								size={5}
+								react={{
+									or: ['Channel', 'Category', 'Tags', 'Search']
+								}}
+								render={resultsListRender}
+							/>
+						</Col>
+					</Row>
+				</Container>
+
+				<Container>
+					<Row>
+						<Col xs='12'>
+							<h1>Title</h1>
+						</Col>
+					</Row>
+				</Container>
+			</div>
 		</ReactiveBase>
 	);
 }
@@ -112,9 +122,7 @@ function resultsListRender({ data }) {
 	const resultListMap = data.map((res) => (
 		<ResultList key={res._id}>
 			<ResultList.Content>
-				<ResultList.Title>
-					<Link to={`/read/${res._id}`}>{res.title}</Link>
-				</ResultList.Title>
+				<ResultList.Title>{res.title}</ResultList.Title>
 				<ResultList.Description>{res.channelTitle}</ResultList.Description>
 			</ResultList.Content>
 		</ResultList>
