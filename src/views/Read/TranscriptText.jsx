@@ -9,9 +9,11 @@ const statusEnum = Object.freeze({
 	READY: 'READY'
 });
 
-export default function transcriptSwitch(statusParam, video) {
+export default function transcriptText(props) {
+	const { status, video } = props;
 	const { ERROR, UPLOAD, READY } = statusEnum;
-	switch (statusParam) {
+
+	switch (status) {
 		case ERROR:
 			return <p>Try refreshing.</p>;
 		case UPLOAD:
