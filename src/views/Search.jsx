@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { Navbar, NavbarBrand, Container, Col, Row } from 'reactstrap';
 import {
 	ReactiveBase,
@@ -11,6 +10,7 @@ import {
 	CategorySearch
 } from '@appbaseio/reactivesearch';
 import './Search.scss';
+import Read from './Read';
 
 const { ResultListWrapper } = ReactiveList;
 
@@ -102,13 +102,7 @@ export default function Search() {
 					</Row>
 				</Container>
 
-				<Container>
-					<Row>
-						<Col xs='12'>
-							<h1>Title</h1>
-						</Col>
-					</Row>
-				</Container>
+				<Read videoId='OVtH0YB6C4I' />
 			</div>
 		</ReactiveBase>
 	);

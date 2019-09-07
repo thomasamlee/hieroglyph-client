@@ -19,7 +19,7 @@ const statusEnum = Object.freeze({
 // YB46h1koicQ Colbert Interview (Example)
 
 export default function Read(props) {
-	const { videoId } = props.match.params;
+	const { videoId } = props;
 
 	const [video, setVideo] = useState(null);
 	const [status, setStatus] = useState('WAITING');
@@ -47,12 +47,6 @@ export default function Read(props) {
 
 	return (
 		<div>
-			<Navbar color='light' light expand='md'>
-				<Link to='/'>
-					<NavbarBrand>Hieroglyph</NavbarBrand>
-				</Link>
-			</Navbar>
-
 			<Container>
 				<Row>
 					<Col>
