@@ -10,7 +10,7 @@ import {
 	CategorySearch
 } from '@appbaseio/reactivesearch';
 import './Search.scss';
-import Read from './Read';
+import Read from '../Read';
 
 const { ResultListWrapper } = ReactiveList;
 
@@ -42,8 +42,11 @@ export default function Search() {
 						autoSuggest={true}
 						placeholder='Search transcripts'
 					/>
-
-					<SelectedFilters showClearAll={true} />
+					<Row>
+						<Col>
+							<SelectedFilters showClearAll={true} />
+						</Col>
+					</Row>
 
 					{/* sidebars */}
 					<Row>
@@ -101,7 +104,6 @@ export default function Search() {
 						</Col>
 					</Row>
 				</Container>
-
 				<Read videoId='OVtH0YB6C4I' />
 			</div>
 		</ReactiveBase>
