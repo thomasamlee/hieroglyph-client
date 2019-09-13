@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
-	Navbar,
-	NavbarBrand,
-	Nav,
-	NavItem,
 	Container,
 	Button,
 	InputGroup,
@@ -85,20 +81,6 @@ export default function Upload() {
 
 	return (
 		<div>
-			{/* <Navbar color='light' light expand='md'>
-				<Link to='/'>
-					<NavbarBrand>Hieroglyph</NavbarBrand>
-				</Link>
-				<Nav className='ml-auto' navbar>
-					<Link to='/upload'>
-						<NavItem>Upload</NavItem>
-					</Link>
-					<Link to='/search'>
-						<NavItem>search</NavItem>
-					</Link>
-				</Nav>
-			</Navbar> */}
-
 			<Container>
 				<h1>Upload</h1>
 				<hr />

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, NavbarBrand, Container, Col, Row } from 'reactstrap';
+import { Container, Col, Row } from 'reactstrap';
 import {
 	ReactiveBase,
 	ResultList,
@@ -13,9 +12,25 @@ import './Search.scss';
 
 const { ResultListWrapper } = ReactiveList;
 
-const AB_READ_API_KEY = '3DFErLjK1:a7f3b0cc-6a6c-4105-9a91-e32575e209c5';
+const AB_READ_API_KEY = 'I1QCdN1rr:cb4cbab9-5398-4c7d-98d5-761236bfa597';
 
-export default function Search() {
+export default function Search(props) {
+	// selects videoId to display in Read pane
+	const { setVideoId } = props;
+
+	function resultsListRender({ data }) {
+		const resultListMap = data.map((res) => (
+			<ResultList key={res._id}>
+				<ResultList.Content>
+					<ResultList.Title>{res.title}</ResultList.Title>
+					<ResultList.Description>{res.channelTitle}</ResultList.Description>
+				</ResultList.Content>
+			</ResultList>
+		));
+
+		return <ResultListWrapper>{resultListMap}</ResultListWrapper>;
+	}
+
 	return (
 		<ReactiveBase
 			app='hieroglyph-videos'
@@ -29,7 +44,7 @@ export default function Search() {
 		>
 			<Container>
 				<Row>
-					<Col xl='9'>
+					<Col>
 						<CategorySearch
 							componentId='Search'
 							dataField={['title', 'channelTitle', 'description']}
@@ -47,7 +62,7 @@ export default function Search() {
 
 				{/* Filters */}
 				<Row>
-					<Col xl='3'>
+					<Col xl='4'>
 						<MultiDropdownList
 							componentId='Category'
 							placeholder='Video Category'
@@ -59,7 +74,7 @@ export default function Search() {
 							}}
 						/>
 					</Col>
-					<Col xl='3'>
+					<Col xl='4'>
 						<MultiDropdownList
 							componentId='Channel'
 							placeholder='Channel'
@@ -71,7 +86,7 @@ export default function Search() {
 							}}
 						/>
 					</Col>
-					<Col xl='3'>
+					<Col xl='4'>
 						<MultiDropdownList
 							componentId='Tags'
 							placeholder='Tags'
@@ -86,7 +101,7 @@ export default function Search() {
 				</Row>
 				{/* Displays results */}
 				<Row>
-					<Col xl='9'>
+					<Col>
 						<ReactiveList
 							componentId='List'
 							dataField={['title', 'description', 'transcript']}
@@ -109,15 +124,3 @@ export default function Search() {
 
 // number of hits within the document
 //
-function resultsListRender({ data }) {
-	const resultListMap = data.map((res) => (
-		<ResultList key={res._id}>
-			<ResultList.Content>
-				<ResultList.Title>{res.title}</ResultList.Title>
-				<ResultList.Description>{res.channelTitle}</ResultList.Description>
-			</ResultList.Content>
-		</ResultList>
-	));
-
-	return <ResultListWrapper>{resultListMap}</ResultListWrapper>;
-}

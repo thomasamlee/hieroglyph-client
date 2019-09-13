@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
-import { Navbar, NavbarBrand, Container, Button, Row, Col } from 'reactstrap';
+import { Container, Button, Row, Col } from 'reactstrap';
 import './Read.scss';
 
 import TranscriptText from './TranscriptText';
@@ -49,7 +48,7 @@ export default function Read(props) {
 		<Container>
 			{showPlayer ? (
 				<Row>
-					<Col xl='9' className='video-frame__box'>
+					<Col className='video-frame__box'>
 						{/* There is a bug here. videoId should equal video.videoId */}
 						<ResponsivePlayer status={status} videoId={videoId} />
 					</Col>
@@ -57,7 +56,7 @@ export default function Read(props) {
 			) : null}
 
 			<Row>
-				<Col xl='9'>
+				<Col>
 					<Button onClick={() => setShowPlayer(!showPlayer)}>
 						Show Player
 					</Button>
@@ -65,7 +64,7 @@ export default function Read(props) {
 			</Row>
 
 			<Row>
-				<Col xl='9'>
+				<Col>
 					<VideoMetadata status={status} video={video} />
 				</Col>
 			</Row>
@@ -78,7 +77,7 @@ export default function Read(props) {
 			</Row>
 			{/* Transcript Text */}
 			<Row className='transcript-row'>
-				<Col xl='9'>
+				<Col>
 					<TranscriptText status={status} video={video} />
 				</Col>
 			</Row>
