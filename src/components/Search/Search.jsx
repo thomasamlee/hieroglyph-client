@@ -6,21 +6,21 @@ import {
 	ReactiveList,
 	MultiDropdownList,
 	SelectedFilters,
-	CategorySearch
+	DataSearch,
+	RangeSlider
 } from '@appbaseio/reactivesearch';
-import './Search.scss';
 
 const { ResultListWrapper } = ReactiveList;
 
-const AB_READ_API_KEY = 'I1QCdN1rr:cb4cbab9-5398-4c7d-98d5-761236bfa597';
+const AB_READ_KEY = 'VDqoTiyCf:5c0efad8-8d1b-4a8e-857a-10e3eb8fe67b';
 
 export default function Search(props) {
-	// selects videoId to display in Read pane
 	const { setVideoId } = props;
 
 	function resultsListRender({ data }) {
 		const resultListMap = data.map((res) => (
 			<ResultList key={res._id}>
+				<ResultList.Image src={res.thumbnails.standard.url} />
 				<ResultList.Content>
 					<ResultList.Title>{res.title}</ResultList.Title>
 					<ResultList.Description>{res.channelTitle}</ResultList.Description>
@@ -32,24 +32,19 @@ export default function Search(props) {
 	}
 
 	return (
-		<ReactiveBase
-			app='hieroglyph-videos'
-			credentials={AB_READ_API_KEY}
-			theme={{
-				typography: {
-					fontFamily:
-						'"Lato", "Open Sans", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif'
-				}
-			}}
-		>
+		<ReactiveBase app='hiero-videos' credentials={AB_READ_KEY}>
 			<Container>
 				<Row>
 					<Col>
-						<CategorySearch
+						<DataSearch
+							autosuggest={false}
 							componentId='Search'
-							dataField={['title', 'channelTitle', 'description']}
-							autoSuggest={true}
-							placeholder='Search transcripts'
+							dataField={['transcript']}
+							fieldWeights={[1]}
+							fuzziness={1}
+							highlight={true}
+							highlightField={['transcript']}
+							queryFormat='and'
 						/>
 					</Col>
 				</Row>
@@ -65,13 +60,9 @@ export default function Search(props) {
 					<Col xl='4'>
 						<MultiDropdownList
 							componentId='Category'
-							placeholder='Video Category'
-							dataField='categoryId'
+							placeholder='Category'
+							dataField='category.keyword'
 							size={50}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
 						/>
 					</Col>
 					<Col xl='4'>
@@ -80,10 +71,6 @@ export default function Search(props) {
 							placeholder='Channel'
 							dataField='channelTitle.keyword'
 							size={10}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
 						/>
 					</Col>
 					<Col xl='4'>
@@ -92,10 +79,17 @@ export default function Search(props) {
 							placeholder='Tags'
 							dataField='tags.keyword'
 							size={10}
-							className='filter'
-							react={{
-								and: ['Channel', 'Category', 'Tags', 'Search']
-							}}
+						/>
+					</Col>
+				</Row>
+
+				<Row>
+					<Col>
+						<RangeSlider
+							componentId='Publish Date'
+							dataField='publishedAt'
+							title='Publish Date'
+							showHistogram={true}
 						/>
 					</Col>
 				</Row>
@@ -104,12 +98,12 @@ export default function Search(props) {
 					<Col>
 						<ReactiveList
 							componentId='List'
-							dataField={['title', 'description', 'transcript']}
+							dataField='_score'
 							className='result'
 							pagination
 							size={10}
 							react={{
-								or: ['Channel', 'Category', 'Tags', 'Search']
+								and: ['Channel', 'Category', 'Search']
 							}}
 							render={resultsListRender}
 						/>
@@ -119,8 +113,3 @@ export default function Search(props) {
 		</ReactiveBase>
 	);
 }
-
-// Can use boostrap here
-
-// number of hits within the document
-//

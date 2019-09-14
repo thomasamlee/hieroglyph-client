@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Container, Button, Row, Col } from 'reactstrap';
-import './Read.scss';
+import './ReadCard.scss';
 
-import TranscriptText from './TranscriptText';
-import ResponsivePlayer from './ResponsivePlayer';
-import VideoMetadata from './VideoMetadata';
+import TranscriptText from '../TranscriptText';
+import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
 
 const statusEnum = Object.freeze({
 	WAITING: 'WAITING',
@@ -15,9 +15,7 @@ const statusEnum = Object.freeze({
 	READY: 'READY'
 });
 
-// YB46h1koicQ Colbert Interview (Example)
-
-export default function Read(props) {
+export default function ReadCard(props) {
 	const { videoId } = props;
 
 	const [video, setVideo] = useState(null);
@@ -46,14 +44,17 @@ export default function Read(props) {
 
 	return (
 		<Container>
-			{showPlayer ? (
+			{showPlayer && (
 				<Row>
 					<Col className='video-frame__box'>
-						{/* There is a bug here. videoId should equal video.videoId */}
-						<ResponsivePlayer status={status} videoId={videoId} />
+						<ReactPlayer
+							url={`https://youtu.be/${videoId}`}
+							width='100%'
+							height='100%'
+						/>
 					</Col>
 				</Row>
-			) : null}
+			)}
 
 			<Row>
 				<Col>
@@ -65,7 +66,14 @@ export default function Read(props) {
 
 			<Row>
 				<Col>
-					<VideoMetadata status={status} video={video} />
+					{status === 'READY' && (
+						<>
+							<Link to={`/read/${videoId}`}>
+								<h2>{video.title}</h2>
+							</Link>
+							<p>{video.channelTitle}</p>
+						</>
+					)}
 				</Col>
 			</Row>
 

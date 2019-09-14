@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const statusEnum = Object.freeze({
 	WAITING: 'WAITING',
@@ -12,7 +13,9 @@ export default function VideoMetadata(props) {
 	const { READY } = statusEnum;
 	return status === READY ? (
 		<>
-			<h2>{video.title}</h2>
+			<Link to={`/read/${video._id}}`}>
+				<h2>{video.title}</h2>
+			</Link>
 			<p>{video.channelTitle}</p>
 		</>
 	) : null;
