@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { Col, Row, Button, Layout, Menu, Card } from 'antd';
-
+import { Col, Row, Button, Layout, Card } from 'antd';
+import NavBar from '../components/NavBar';
+import ReadCard from '../components/ReadCard';
 import {
 	ReactiveBase,
 	ResultList,
 	ReactiveList,
 	MultiList,
 	SelectedFilters,
-	DataSearch,
-	RangeSlider
+	DataSearch
 } from '@appbaseio/reactivesearch';
 
 const { Content, Header } = Layout;
 
 const { ResultListWrapper } = ReactiveList;
-
-const AB_READ_KEY = 'VDqoTiyCf:5c0efad8-8d1b-4a8e-857a-10e3eb8fe67b';
 
 export default function Search() {
 	const [filters, setFilters] = useState(false);
@@ -35,14 +33,13 @@ export default function Search() {
 	}
 
 	return (
-		<ReactiveBase app='hiero-videos' credentials={AB_READ_KEY}>
+		<ReactiveBase
+			app='hiero-videos'
+			credentials='VDqoTiyCf:5c0efad8-8d1b-4a8e-857a-10e3eb8fe67b'
+		>
 			<Layout>
 				<Header>
-					<Menu mode='horizontal' theme='dark'>
-						<Menu.Item key='1'>Nav 1</Menu.Item>
-						<Menu.Item key='2'>Nav 2</Menu.Item>
-						<Menu.Item key='3'>Nav 3</Menu.Item>
-					</Menu>
+					<NavBar />
 				</Header>
 
 				<Content>
@@ -135,13 +132,7 @@ export default function Search() {
 
 						{selected && (
 							<Col span={8}>
-								<Button onClick={() => setSelected('')}>Close</Button>
-								<Card title={selected.title}>
-									<p>{selected.channelTitle}</p>
-									<p>{selected.description}</p>
-									<hr />
-									<p>{selected.transcript}</p>
-								</Card>
+								<ReadCard video={selected} />
 							</Col>
 						)}
 					</Row>

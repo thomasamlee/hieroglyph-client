@@ -80,26 +80,27 @@ export default function Upload() {
 	}
 
 	return (
-		<div>
-			<Container>
-				<h1>Upload</h1>
-				<hr />
-				<InputGroup>
-					<Input
-						type='text'
-						placeholder='YouTube URL'
-						value={inputUrl}
-						onChange={(e) => handleInput(e)}
-					/>
-					<InputGroupAddon addonType='append'>
-						{buttonSwitch(status)}
-					</InputGroupAddon>
-				</InputGroup>
+		<Layout>
+			<Header>
+				<NavBar />
+			</Header>
+			<h1>Upload</h1>
+			<hr />
+			<InputGroup>
+				<Input
+					type='text'
+					placeholder='YouTube URL'
+					value={inputUrl}
+					onChange={(e) => handleInput(e)}
+				/>
+				<InputGroupAddon addonType='append'>
+					{buttonSwitch(status)}
+				</InputGroupAddon>
+			</InputGroup>
 
-				<hr />
-				{messageSwitch(status)}
-			</Container>
-		</div>
+			<hr />
+			{messageSwitch(status)}
+		</Layout>
 	);
 }
 

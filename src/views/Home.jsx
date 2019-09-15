@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Col, Row, Button, Layout, Menu, Card } from 'antd';
+import React from 'react';
+import { Col, Row, Layout } from 'antd';
+import NavBar from '../components/NavBar';
 
 import {
 	ReactiveBase,
@@ -37,11 +38,7 @@ export default function Home(props) {
 		<ReactiveBase app='hiero-videos' credentials={AB_READ_KEY}>
 			<Layout>
 				<Header>
-					<Menu mode='horizontal' theme='dark'>
-						<Menu.Item key='1'>Nav 1</Menu.Item>
-						<Menu.Item key='2'>Nav 2</Menu.Item>
-						<Menu.Item key='3'>Nav 3</Menu.Item>
-					</Menu>
+					<NavBar />
 				</Header>
 
 				<Content>
