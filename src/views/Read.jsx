@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Container, Row, Col } from 'reactstrap';
+import { Layout, Row, Col } from 'antd';
+import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 import './Read.scss';
 
@@ -43,43 +44,45 @@ export default function Read(props) {
 	}, [videoId]);
 
 	return (
-		<Container>
-			<Button>
-				<Link to='/' style={{ textDecoration: 'none' }}>
-					Back
-				</Link>
-			</Button>
-			{showPlayer && (
+		<Layout>
+			<Content>
+				<Button>
+					<Link to='/' style={{ textDecoration: 'none' }}>
+						Back
+					</Link>
+				</Button>
+				{showPlayer && (
+					<Row>
+						<Col className='video-frame__box'>
+							<ReactPlayer
+								url={`https://youtu.be/${videoId}`}
+								width='100%'
+								height='100%'
+							/>
+						</Col>
+					</Row>
+				)}
+
 				<Row>
-					<Col className='video-frame__box'>
-						<ReactPlayer
-							url={`https://youtu.be/${videoId}`}
-							width='100%'
-							height='100%'
-						/>
+					<Col>
+						<Button onClick={() => setShowPlayer(!showPlayer)}>
+							Show Player
+						</Button>
 					</Col>
 				</Row>
-			)}
 
-			<Row>
-				<Col>
-					<Button onClick={() => setShowPlayer(!showPlayer)}>
-						Show Player
-					</Button>
-				</Col>
-			</Row>
+				<Row>
+					<Col>
+						<VideoMetadata status={status} video={video} />
+					</Col>
+				</Row>
 
-			<Row>
-				<Col>
-					<VideoMetadata status={status} video={video} />
-				</Col>
-			</Row>
-
-			<Row className='transcript-row'>
-				<Col>
-					<TranscriptText status={status} video={video} />
-				</Col>
-			</Row>
-		</Container>
+				<Row className='transcript-row'>
+					<Col>
+						<TranscriptText status={status} video={video} />
+					</Col>
+				</Row>
+			</Content>
+		</Layout>
 	);
 }

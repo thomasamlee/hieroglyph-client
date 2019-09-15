@@ -1,94 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import 'antd/dist/antd.css';
+import './ReadCard.css';
+import { Row, Col, Card } from 'antd';
 
-import { Container, Button, Row, Col } from 'reactstrap';
-import './ReadCard.scss';
-
-import TranscriptText from '../TranscriptText';
-import ReactPlayer from 'react-player';
-import { Link } from 'react-router-dom';
-
-const statusEnum = Object.freeze({
-	WAITING: 'WAITING',
-	ERROR: 'ERROR',
-	UPLOAD: 'UPLOAD',
-	READY: 'READY'
-});
-
-export default function ReadCard(props) {
-	const { videoId } = props;
-
-	const [video, setVideo] = useState(null);
-	const [status, setStatus] = useState('WAITING');
-	const [showPlayer, setShowPlayer] = useState(true);
-
-	async function fetchData(videoId) {
-		const { ERROR, UPLOAD, READY } = statusEnum;
-		try {
-			const { data } = await axios.get(`/api/video/${videoId}`);
-			if (data) {
-				setVideo(data);
-				setStatus(READY);
-			} else {
-				setStatus(UPLOAD);
-			}
-		} catch (err) {
-			console.log(err);
-			setStatus(ERROR);
-		}
-	}
-
-	useEffect(() => {
-		fetchData(videoId);
-	}, [videoId]);
-
+export default function ReadCard() {
 	return (
-		<Container>
-			{showPlayer && (
-				<Row>
-					<Col className='video-frame__box'>
-						<ReactPlayer
-							url={`https://youtu.be/${videoId}`}
-							width='100%'
-							height='100%'
-						/>
-					</Col>
-				</Row>
-			)}
-
-			<Row>
-				<Col>
-					<Button onClick={() => setShowPlayer(!showPlayer)}>
-						Show Player
-					</Button>
-				</Col>
-			</Row>
-
-			<Row>
-				<Col>
-					{status === 'READY' && (
-						<>
-							<Link to={`/read/${videoId}`}>
-								<h2>{video.title}</h2>
-							</Link>
-							<p>{video.channelTitle}</p>
-						</>
-					)}
-				</Col>
-			</Row>
-
-			{/* Line Break (remove?)
-			<Row>
-				<Col xs='9'>
-					<hr />
-				</Col>
-			</Row>
-			{/* Transcript Text */}
-			<Row className='transcript-row'>
-				<Col>
-					<TranscriptText status={status} video={video} />
-				</Col>
-			</Row>
-		</Container>
+		<Card title='Video Title' size='default'>
+			<h1>Video Title</h1>
+			<hr />
+			<h2>Channel Title</h2>
+			<p>Description</p>
+			<hr />
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultricies
+				aliquet lacus, ut gravida libero pellentesque a. Nam vel eros et turpis
+				ultrices pulvinar sit amet quis erat. Etiam id efficitur sapien,
+				facilisis accumsan felis. Integer id nisi lacus. Nulla sollicitudin
+				augue sem, eget faucibus sem tempor vel. Quisque tempus urna et gravida
+				consectetur. Aliquam erat volutpat. Fusce tempus faucibus risus sed
+				elementum. Curabitur fringilla nisi ut lacinia fringilla. Nam bibendum
+				tempor ornare. Morbi ultricies pulvinar est, eu bibendum orci commodo
+				eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				ultricies aliquet lacus, ut gravida libero pellentesque a. Nam vel eros
+				et turpis ultrices pulvinar sit amet quis erat. Etiam id efficitur
+				sapien, facilisis accumsan felis. Integer id nisi lacus. Nulla
+				sollicitudin augue sem, eget faucibus sem tempor vel. Quisque tempus
+				urna et gravida consectetur. Aliquam erat volutpat. Fusce tempus
+				faucibus risus sed elementum. Curabitur fringilla nisi ut lacinia
+				fringilla. Nam bibendum tempor ornare. Morbi ultricies pulvinar est, eu
+				bibendum orci commodo eget.Lorem ipsum dolor sit amet, consectetur
+				adipiscing elit. Nulla ultricies aliquet lacus, ut gravida libero
+				pellentesque a. Nam vel eros et turpis ultrices pulvinar sit amet quis
+				erat. Etiam id efficitur sapien, facilisis accumsan felis. Integer id
+				nisi lacus. Nulla sollicitudin augue sem, eget faucibus sem tempor vel.
+				Quisque tempus urna et gravida consectetur. Aliquam erat volutpat. Fusce
+				tempus faucibus risus sed elementum. Curabitur fringilla nisi ut lacinia
+				fringilla. Nam bibendum tempor ornare. Morbi ultricies pulvinar est, eu
+				bibendum orci commodo eget.Lorem ipsum dolor sit amet, consectetur
+				adipiscing elit. Nulla ultricies aliquet lacus, ut gravida libero
+				pellentesque a. Nam vel eros et turpis ultrices pulvinar sit amet quis
+				erat. Etiam id efficitur sapien, facilisis accumsan felis. Integer id
+				nisi lacus. Nulla sollicitudin augue sem, eget faucibus sem tempor vel.
+				Quisque tempus urna et gravida consectetur. Aliquam erat volutpat. Fusce
+				tempus faucibus risus sed elementum. Curabitur fringilla nisi ut lacinia
+				fringilla. Nam bibendum tempor ornare. Morbi ultricies pulvinar est, eu
+				bibendum orci commodo eget.
+			</p>
+		</Card>
 	);
 }
