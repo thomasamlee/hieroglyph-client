@@ -24,7 +24,10 @@ export default function Search() {
 			<ResultList key={res._id} onClick={() => setSelected(res)}>
 				<ResultList.Content>
 					<ResultList.Title>{res.title}</ResultList.Title>
-					<ResultList.Description>{res.channelTitle}</ResultList.Description>
+					<ResultList.Description>Score: {res._score}</ResultList.Description>
+					<ResultList.Description>
+						Channel: {res.channelTitle}
+					</ResultList.Description>
 				</ResultList.Content>
 			</ResultList>
 		));
@@ -41,14 +44,14 @@ export default function Search() {
 				<Sider>
 					<MultiDropdownList
 						title='Category'
-						componentId='Category-list'
+						componentId='Category-List'
 						placeholder='Filter Category'
 						dataField='category.keyword'
 						size={5}
 					/>
 					<MultiDropdownList
 						title='Channel'
-						componentId='Channel-list'
+						componentId='Channel-List'
 						placeholder='Channel'
 						dataField='channelTitle.keyword'
 						size={5}
@@ -59,20 +62,24 @@ export default function Search() {
 						<Col span={8} offset={8}>
 							<DataSearch
 								autosuggest={false}
-								componentId='Search'
-								dataField={['transcript', 'title']}
+								componentId='Video-Search'
+								title='Video Search'
+								dataField={['title']}
 								fieldWeights={[1, 1]}
 								fuzziness={1}
-								highlight={true}
-								highlightField={['transcript', 'title,']}
+								queryFormat='and'
+							/>
+							<DataSearch
+								autosuggest={false}
+								componentId='Transcript-Search'
+								title='Transcript Search'
+								dataField={['transcript']}
+								fieldWeights={[1, 1]}
+								fuzziness={1}
 								queryFormat='and'
 							/>
 							<SelectedFilters showClearAll={true} />
 						</Col>
-					</Row>
-
-					<Row>
-						<Col span={8} offset={8}></Col>
 					</Row>
 
 					<Row gutter={16}>
@@ -81,10 +88,16 @@ export default function Search() {
 								componentId='List'
 								dataField='_score'
 								className='result'
+								loader='Loading Results..'
 								pagination
-								size={10}
+								size={5}
 								react={{
-									and: ['Channel-list', 'Category-list', 'Search-list']
+									and: [
+										'Video-Search',
+										'Transcript-Search',
+										'Category-List',
+										'Channel-List'
+									]
 								}}
 								render={resultsListRender}
 							/>
