@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
-import { Col, Row, Button, Layout, Card } from 'antd';
-import NavBar from '../components/NavBar';
+import { Col, Row, Button, Layout, Menu } from 'antd';
+
 import ReadCard from '../components/ReadCard';
 import {
 	ReactiveBase,
 	ResultList,
 	ReactiveList,
-	MultiList,
+	MultiDropdownList,
 	SelectedFilters,
 	DataSearch
 } from '@appbaseio/reactivesearch';
 
-const { Content, Header } = Layout;
+const { Content, Header, Sider } = Layout;
 
 const { ResultListWrapper } = ReactiveList;
 
 export default function Search() {
-	const [filters, setFilters] = useState(false);
 	const [selected, setSelected] = useState(null);
 
 	function resultsListRender({ data }) {
+		console.log(data);
 		const resultListMap = data.map((res) => (
 			<ResultList key={res._id} onClick={() => setSelected(res)}>
-				{/* <ResultList.Image src={res.thumbnails.standard.url} /> */}
 				<ResultList.Content>
 					<ResultList.Title>{res.title}</ResultList.Title>
 					<ResultList.Description>{res.channelTitle}</ResultList.Description>
@@ -37,84 +36,45 @@ export default function Search() {
 			app='hiero-videos'
 			credentials='VDqoTiyCf:5c0efad8-8d1b-4a8e-857a-10e3eb8fe67b'
 		>
+			<Header>Hieroglyph</Header>
 			<Layout>
-				<Header>
-					<NavBar />
-				</Header>
-
+				<Sider>
+					<MultiDropdownList
+						title='Category'
+						componentId='Category-list'
+						placeholder='Filter Category'
+						dataField='category.keyword'
+						size={5}
+					/>
+					<MultiDropdownList
+						title='Channel'
+						componentId='Channel-list'
+						placeholder='Channel'
+						dataField='channelTitle.keyword'
+						size={5}
+					/>
+				</Sider>
 				<Content>
 					<Row>
 						<Col span={8} offset={8}>
 							<DataSearch
 								autosuggest={false}
 								componentId='Search'
-								dataField={['transcript']}
-								fieldWeights={[1]}
+								dataField={['transcript', 'title']}
+								fieldWeights={[1, 1]}
 								fuzziness={1}
 								highlight={true}
-								highlightField={['transcript']}
+								highlightField={['transcript', 'title,']}
 								queryFormat='and'
 							/>
+							<SelectedFilters showClearAll={true} />
 						</Col>
 					</Row>
 
 					<Row>
-						<Card>
-							{filters && (
-								<>
-									<Row>
-										<Col span={24}>
-											<SelectedFilters showClearAll={true} />
-										</Col>
-									</Row>
-
-									<Row gutter={16}>
-										<Col span={6}>
-											<MultiList
-												componentId='Category-list'
-												placeholder='Category'
-												dataField='category.keyword'
-												size={5}
-											/>
-										</Col>
-										<Col span={6}>
-											<MultiList
-												componentId='Channel-list'
-												placeholder='Channel'
-												dataField='channelTitle.keyword'
-												size={5}
-											/>
-										</Col>
-										<Col span={6}>
-											<MultiList
-												componentId='Tags-list'
-												placeholder='Tags'
-												dataField='tags.keyword'
-												size={5}
-											/>
-										</Col>
-										<Col span={6}>
-											<MultiList
-												componentId='Category-list'
-												placeholder='Category'
-												dataField='category.keyword'
-												s
-											/>
-										</Col>
-									</Row>
-								</>
-							)}
-							<Row>
-								<Col span={2} offset={10}>
-									<Button onClick={() => setFilters(!filters)}>
-										Hide Filters
-									</Button>
-								</Col>
-							</Row>
-						</Card>
+						<Col span={8} offset={8}></Col>
 					</Row>
 
-					{/* This is where we do split view */}
 					<Row gutter={16}>
 						<Col span={8} offset={selected ? 4 : 8}>
 							<ReactiveList
