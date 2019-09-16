@@ -132,7 +132,7 @@ export default function Search() {
 
 						{selected && (
 							<Col span={8}>
-								<ReadCard video={selected} />
+								<ReadCard video={selected} onClose={() => setSelected(null)} />
 							</Col>
 						)}
 					</Row>
