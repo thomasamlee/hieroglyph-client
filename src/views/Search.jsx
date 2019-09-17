@@ -8,7 +8,7 @@ import {
 	SelectedFilters,
 	DataSearch
 } from '@appbaseio/reactivesearch';
-
+import './Search.scss';
 import ReadCard from '../components/ReadCard';
 
 const { Content, Header } = Layout;
@@ -72,7 +72,7 @@ export default function Search() {
 								fieldWeights={[10, 1, 1, 10]}
 								fuzziness={0}
 								highlight={true}
-								highlightField={['transcript', 'tags', 'title', 'description']}
+								highlightField={['transcript', 'title']}
 								placeholder='search transcripts'
 								queryFormat='or'
 								style={{
