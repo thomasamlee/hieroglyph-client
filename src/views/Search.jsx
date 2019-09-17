@@ -42,14 +42,34 @@ export default function Search() {
 			<Layout>
 				<Header>Hieroglyph</Header>
 				<Content>
-					<Row gutter={24}>
+					<Row gutter={24} type='flex' justify='center'>
 						{/* Search Column */}
 						<Col
-							xs={{ span: 20, offset: 2 }}
-							xl={{ span: 8, offset: selected ? 4 : 8 }}
+							xs={{ span: 22 }}
+							sm={{ span: 22 }}
+							md={{ span: 22 }}
+							lg={selected ? { span: 7 } : { span: 12 }}
+							xl={selected ? { span: 11 } : { span: 12 }}
+							xl={selected ? { span: 11 } : { span: 12 }}
 						>
+							<DataSearch
+								autosuggest={false}
+								componentId='search'
+								dataField={['transcript', 'tags', 'title', 'description']}
+								fieldWeights={[10, 1, 1, 10]}
+								fuzziness={0}
+								highlight={true}
+								highlightField={['transcript', 'title']}
+								placeholder='search transcripts'
+								queryFormat='or'
+								style={{
+									marginTop: 24,
+									marginBottom: 24
+								}}
+							/>
+							<SelectedFilters showClearAll={true} />
 							{/* Filters */}
-							<Row gutter={24}>
+							<Row gutter={{ xs: 8, sm: 8, md: 16, lg: 24, xl: 24 }}>
 								<Col span={12}>
 									<MultiDropdownList
 										componentId='list-category'
@@ -65,21 +85,6 @@ export default function Search() {
 									/>
 								</Col>
 							</Row>
-							<DataSearch
-								autosuggest={false}
-								componentId='search'
-								dataField={['transcript', 'tags', 'title', 'description']}
-								fieldWeights={[10, 1, 1, 10]}
-								fuzziness={0}
-								highlight={true}
-								highlightField={['transcript', 'title']}
-								placeholder='search transcripts'
-								queryFormat='or'
-								style={{
-									marginBottom: 20
-								}}
-							/>
-							<SelectedFilters showClearAll={true} />
 							<ReactiveList
 								componentId='result'
 								dataField='_score'
@@ -92,11 +97,19 @@ export default function Search() {
 							/>
 						</Col>
 
-						<Col span={selected ? 8 : 0} style={{ height: '100%' }}>
-							{selected && (
+						{selected && (
+							<Col
+								xs={{ span: 0 }}
+								sm={{ span: 0 }}
+								md={{ span: 0 }}
+								lg={{ span: 15 }}
+								xl={{ span: 11 }}
+								xl={{ span: 11 }}
+								style={{ marginTop: 24, marginBottom: 24 }}
+							>
 								<ReadCard video={selected} onClose={() => setSelected(null)} />
-							)}
-						</Col>
+							</Col>
+						)}
 					</Row>
 				</Content>
 			</Layout>
@@ -104,9 +117,16 @@ export default function Search() {
 	);
 }
 
+// Breakpoints:
 // xs <576px
 // sm ≥576px
 // md ≥768px
-// lg ≥992px
-// xl ≥1200px
-// xxl ≥1600px
+
+// lg ≥992px => 1/3, 2/3 no margins (1, 11, 11, 1)
+// xl ≥1200px => 1/3, 2/3 with margins
+// xxl ≥1600px => => 1/2, 1/2 with margins
+
+// Vertical Spacing:
+// 8px (small spacing)
+// 16px (middle spacing)
+// 24px (large spacing)
