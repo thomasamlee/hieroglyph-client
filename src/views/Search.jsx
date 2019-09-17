@@ -42,7 +42,7 @@ export default function Search() {
 			<Layout>
 				<Header>Hieroglyph</Header>
 				<Content>
-					<Row gutter={24} type='flex' justify='center'>
+					<Row gutter={{ lg: 24 }} type='flex' justify='center'>
 						{/* Search Column */}
 						<Col
 							xs={{ span: 22 }}
@@ -50,10 +50,9 @@ export default function Search() {
 							md={{ span: 22 }}
 							lg={selected ? { span: 7 } : { span: 12 }}
 							xl={selected ? { span: 11 } : { span: 12 }}
-							xl={selected ? { span: 11 } : { span: 12 }}
+							xxl={selected ? { span: 8 } : { span: 8 }}
 						>
 							<DataSearch
-								autosuggest={false}
 								componentId='search'
 								dataField={['transcript', 'tags', 'title', 'description']}
 								fieldWeights={[10, 1, 1, 10]}
@@ -61,23 +60,40 @@ export default function Search() {
 								highlight={true}
 								highlightField={['transcript', 'title']}
 								placeholder='search transcripts'
-								queryFormat='or'
+								queryFormat='and'
+								URLParams={true}
 								style={{
 									marginTop: 24,
-									marginBottom: 24
+									marginBottom: 16
 								}}
 							/>
-							<SelectedFilters showClearAll={true} />
+							<SelectedFilters
+								style={{
+									marginBottom: 16
+								}}
+							/>
 							{/* Filters */}
-							<Row gutter={{ xs: 8, sm: 8, md: 16, lg: 24, xl: 24 }}>
-								<Col span={12}>
+							<Row gutter={{ xs: 8, md: 24 }}>
+								<Col
+									xs={{ span: 24 }}
+									md={{ span: 12 }}
+									style={{
+										marginBottom: 4
+									}}
+								>
 									<MultiDropdownList
 										componentId='list-category'
 										placeholder='Category'
 										dataField='category.keyword'
 									/>
 								</Col>
-								<Col span={12}>
+								<Col
+									xs={{ span: 24 }}
+									md={{ span: 12 }}
+									style={{
+										marginBottom: 4
+									}}
+								>
 									<MultiDropdownList
 										componentId='list-channel'
 										placeholder='Channel'
@@ -100,11 +116,9 @@ export default function Search() {
 						{selected && (
 							<Col
 								xs={{ span: 0 }}
-								sm={{ span: 0 }}
-								md={{ span: 0 }}
 								lg={{ span: 15 }}
 								xl={{ span: 11 }}
-								xl={{ span: 11 }}
+								xxl={{ span: 11 }}
 								style={{ marginTop: 24, marginBottom: 24 }}
 							>
 								<ReadCard video={selected} onClose={() => setSelected(null)} />
