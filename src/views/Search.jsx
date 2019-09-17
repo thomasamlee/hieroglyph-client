@@ -8,7 +8,7 @@ import {
 	SelectedFilters,
 	DataSearch
 } from '@appbaseio/reactivesearch';
-import './Search.scss';
+
 import ReadCard from '../components/ReadCard';
 
 const { Content, Header } = Layout;
@@ -16,11 +16,16 @@ const { ResultListWrapper } = ReactiveList;
 
 export default function Search() {
 	const [selected, setSelected] = useState(null);
+	// const [showFilter, setShowFilter] = useState(false);
 
 	function resultsListRender({ data }) {
 		const resultListMap = data.map((res) => {
 			return (
-				<ResultList key={res._id} onClick={() => setSelected(res)}>
+				<ResultList
+					key={res._id}
+					onClick={() => setSelected(res)}
+					style={{ marginBottom: 8 }}
+				>
 					<ResultList.Content>
 						<ResultList.Title>{res.title}</ResultList.Title>
 						<ResultList.Description>
@@ -46,9 +51,7 @@ export default function Search() {
 						{/* Search Column */}
 						<Col
 							xs={{ span: 22 }}
-							sm={{ span: 22 }}
-							md={{ span: 22 }}
-							lg={selected ? { span: 7 } : { span: 12 }}
+							lg={selected ? { span: 7 } : { span: 18 }}
 							xl={selected ? { span: 11 } : { span: 12 }}
 							xxl={selected ? { span: 8 } : { span: 8 }}
 						>
@@ -67,18 +70,25 @@ export default function Search() {
 									marginBottom: 16
 								}}
 							/>
-							<SelectedFilters
-								style={{
-									marginBottom: 16
-								}}
-							/>
-							{/* Filters */}
-							<Row gutter={{ xs: 8, md: 24 }}>
+							<SelectedFilters style={{ marginBottom: 8 }} />
+
+							{/* Filter Button: Memory Leak Bug */}
+							{/* <Row type='flex' justify='center' style={{ marginBottom: 8 }}>
+								<Button
+									type='primary'
+									onClick={() => setShowFilter(!showFilter)}
+								>
+									{showFilter ? 'Filters ' : 'Filters '}
+									<Icon type={showFilter ? 'caret-down' : 'caret-up'} />
+								</Button>
+							</Row> */}
+
+							<Row gutter={{ xs: 0, md: 8, lg: 24 }}>
 								<Col
 									xs={{ span: 24 }}
 									md={{ span: 12 }}
 									style={{
-										marginBottom: 4
+										marginBottom: 8
 									}}
 								>
 									<MultiDropdownList
@@ -91,7 +101,7 @@ export default function Search() {
 									xs={{ span: 24 }}
 									md={{ span: 12 }}
 									style={{
-										marginBottom: 4
+										marginBottom: 8
 									}}
 								>
 									<MultiDropdownList
@@ -101,6 +111,7 @@ export default function Search() {
 									/>
 								</Col>
 							</Row>
+
 							<ReactiveList
 								componentId='result'
 								dataField='_score'
