@@ -1,6 +1,4 @@
 import React from 'react';
-import 'antd/dist/antd.css';
-import './ReadCard.scss';
 import { Card, Button } from 'antd';
 
 export default function ReadCard(props) {
@@ -11,7 +9,7 @@ export default function ReadCard(props) {
 			<p>{video.channelTitle}</p>
 			<p>{video.description}</p>
 			<hr />
-			<p className='overflow'>{video.transcript}</p>
+			<p>{video.transcript}</p>
 		</Card>
 	);
 }
