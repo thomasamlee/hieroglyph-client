@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Layout } from 'antd';
+import { Col, Row, Layout, Affix } from 'antd';
 import {
 	ReactiveBase,
 	ResultList,
@@ -52,8 +52,8 @@ export default function Search() {
 						<Col
 							xs={{ span: 22 }}
 							lg={selected ? { span: 7 } : { span: 18 }}
-							xl={selected ? { span: 11 } : { span: 12 }}
-							xxl={selected ? { span: 8 } : { span: 8 }}
+							xl={selected ? { span: 7 } : { span: 18 }}
+							xxl={{ span: 8 }}
 						>
 							<DataSearch
 								componentId='search'
@@ -83,7 +83,7 @@ export default function Search() {
 								</Button>
 							</Row> */}
 
-							<Row gutter={{ xs: 0, md: 8, lg: 24 }}>
+							<Row gutter={{ xs: 0, md: 8 }}>
 								<Col
 									xs={{ span: 24 }}
 									md={{ span: 12 }}
@@ -128,13 +128,26 @@ export default function Search() {
 							<Col
 								xs={{ span: 0 }}
 								lg={{ span: 15 }}
-								xl={{ span: 11 }}
-								xxl={{ span: 11 }}
+								xl={{ span: 15 }}
+								xxl={{ span: 8 }}
 								style={{ marginTop: 24, marginBottom: 24 }}
 							>
 								<ReadCard video={selected} onClose={() => setSelected(null)} />
 							</Col>
 						)}
+					</Row>
+					{/* bottom header */}
+					<Row type='flex' justify='center'>
+						<Col xs={{ span: 22 }} lg={{ span: 0 }}>
+							{selected && (
+								<Affix>
+									<ReadCard
+										video={selected}
+										onClose={() => setSelected(null)}
+									/>
+								</Affix>
+							)}
+						</Col>
 					</Row>
 				</Content>
 			</Layout>
