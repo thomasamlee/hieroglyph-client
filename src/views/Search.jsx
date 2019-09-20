@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Layout, Affix } from 'antd';
+import { Col, Row, Layout, Affix, Button, Drawer } from 'antd';
 import {
 	ReactiveBase,
 	ResultList,
@@ -16,6 +16,7 @@ const { ResultListWrapper } = ReactiveList;
 
 export default function Search() {
 	const [selected, setSelected] = useState(null);
+	const [visible, setVisible] = useState(false);
 	// const [showFilter, setShowFilter] = useState(false);
 
 	function resultsListRender({ data }) {
@@ -52,7 +53,6 @@ export default function Search() {
 						<Col
 							xs={{ span: 22 }}
 							lg={selected ? { span: 7 } : { span: 18 }}
-							xl={selected ? { span: 7 } : { span: 18 }}
 							xxl={{ span: 8 }}
 						>
 							<DataSearch
@@ -128,29 +128,42 @@ export default function Search() {
 							<Col
 								xs={{ span: 0 }}
 								lg={{ span: 15 }}
-								xl={{ span: 15 }}
 								xxl={{ span: 8 }}
 								style={{ marginTop: 24, marginBottom: 24 }}
 							>
 								<ReadCard video={selected} onClose={() => setSelected(null)} />
 							</Col>
 						)}
-					</Row>
-					{/* bottom header */}
-					<Row type='flex' justify='center'>
-						<Col xs={{ span: 22 }} lg={{ span: 0 }}>
-							{selected && (
-								<Affix>
-									<ReadCard
-										video={selected}
-										onClose={() => setSelected(null)}
-									/>
-								</Affix>
-							)}
-						</Col>
+
+						{/* bottom button for bottom drawer */}
 					</Row>
 				</Content>
 			</Layout>
+
+			<Row gutter={{ lg: 24 }} type='flex' justify='center'>
+				<Col
+					xs={{ span: 22 }}
+					lg={{ span: 0 }}
+					onClick={() => setVisible(true)}
+				>
+					{selected && (
+						<Affix offsetBottom={0}>
+							<h1>Show Bottom Drawer</h1>
+						</Affix>
+					)}
+				</Col>
+			</Row>
+
+			{/* Put mobile Read Card here */}
+			{selected && (
+				<Drawer
+					placement='bottom'
+					visible={visible}
+					onClose={() => setVisible(!visible)}
+				>
+					<h1>Drawer</h1>
+				</Drawer>
+			)}
 		</ReactiveBase>
 	);
 }
